@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-// "Banco de dados" temporário
 const usuarios = [
   { email: 'teste@email.com', cpf: '12345678900', senha: '1234' },
   { email: 'aluno@universidade.com', cpf: '98765432100', senha: 'senha123' },

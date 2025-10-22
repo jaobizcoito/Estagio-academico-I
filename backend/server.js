@@ -1,4 +1,4 @@
-const express = require('express');
+/* const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
@@ -88,4 +88,13 @@ app.post('/login', async (req, res) => {
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(✅ Servidor rodando em http://localhost:${PORT});
-});
+}); */
+
+const express = require('express');
+const app = express();
+
+const rotaBusca = require('./routes/busca'); 
+
+app.use('/api/buscar', rotaBusca); 
+
+app.listen(3000, () => console.log('Servidor rodando na porta 3000'));
