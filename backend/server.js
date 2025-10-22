@@ -93,8 +93,11 @@ app.listen(PORT, () => {
 const express = require('express');
 const app = express();
 
-const rotaBusca = require('./routes/busca'); 
+const rotaBusca = require('./routes/busca');
 
-app.use('/api/buscar', rotaBusca); 
+app.use(express.json());
+app.use(express.static('public'));
+
+app.use('/api/buscar', rotaBusca);
 
 app.listen(3000, () => console.log('Servidor rodando na porta 3000'));

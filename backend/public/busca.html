@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Achados e Perdidos - Busca</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    #busca {
+      width: 70%;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: white;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 4px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Buscar objetos perdidos</h1>
+
+  <input type="text" id="busca" placeholder="Digite o nome ou local" />
+  <button id="botaoBuscar">Buscar</button>
+
+  <ul id="resultados"></ul>
+
+  <script>
+    document.getElementById('botaoBuscar').addEventListener('click', async () => {
+      const termo = document.getElementById('busca').value.trim();
+      if (!termo) return alert('Digite algo para buscar.');
+
+      const resposta = await fetch(`/api/buscar?q=${encodeURIComponent(termo)}`);
+      const resultados = await resposta.json();
+
+      const lista = document.getElementById('resultados');
+      lista.innerHTML = '';
+
+      if (resultados.length === 0) {
+        lista.innerHTML = '<li>Nenhum resultado encontrado.</li>';
+        return;
+      }
+
+      resultados.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.nome} — ${item.local}`;
+        lista.appendChild(li);
+      });
+    });
+  </script>
+</body>
+</html>
